@@ -1,4 +1,5 @@
 #!/bin/sh
+#Part C. filtering genotypes：remove low-quality variants and filter by minimum MAF, MAC
 data_field="22418"
 
 # Outputs:
@@ -18,7 +19,7 @@ run_plink_qc="plink2 --bfile ukb${data_field}_c1_22_v2_merged\
 dx run swiss-army-knife \
    -iin="${data_file_dir}/ukb${data_field}_c1_22_v2_merged.bed" \
    -iin="${data_file_dir}/ukb${data_field}_c1_22_v2_merged.bim" \
-   -iin="${data_file_dir}/ukb${data_field}_c1_22_v2_merged.fam"\
+   -iin="${data_file_dir}/ukb${data_field}_c1_22_v2_merged.fam" \
    -iin="${data_file_dir}/urticaria_wes.phe" \
    -icmd="${run_plink_qc}" --tag="Step1" --instance-type "mem1_ssd1_v2_x16"\
    --destination="${project}:/Data/" --brief --yes
