@@ -1,14 +1,18 @@
 #!/bin/sh
-#Part C. filtering genotypes：remove low-quality variants and filter by minimum MAF, MAC
-data_field="22418"
+
+#Part C. filtering genotypes: remove low-quality variants and filter by minimum MAF, MAC
+
+# Inputs
+# - /Data/urticaria_wes.phe
 
 # Outputs:
-# - /Data/WES_array_snps_qc_pass.snplist - Used as input for part D
+# - /Data/WES_array_snps_qc_pass.snplist
 # - /Data/WES_array_snps_qc_pass.log
 # - /Data/WES_array_snps_qc_pass.id
 
 #set output directory (also location of merged files)
 data_file_dir="/Data/"
+data_field="22418"
 
 run_plink_qc="plink2 --bfile ukb${data_field}_c1_22_v2_merged\
  --keep urticaria_wes.phe --autosome\

@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # regenie step 1
 
 # Inputs:
@@ -13,15 +14,13 @@
 # - /Data/urticaria_results_pred.list - List of files generated this step (used in part F)
 # - /Data/urticaria_results.log
 
-
-#output directory - this should also be where the files in 02-step1-qc-filter.sh end up
 data_file_dir="/Data/"
 
 run_regenie_step1="regenie --step 1\
  --lowmem --out urticaria_results --bed ukb22418_c1_22_v2_merged\
  --phenoFile urticaria_wes.phe --covarFile urticaria_wes.phe\
  --extract WES_array_snps_qc_pass.snplist --phenoCol urticaria_cc\
- --covarCol age --covarCol sex --covarCol ethnic_group --covarCol ever_smoked\
+ --covarCol age --covarCol sex  --covarCol ever_smoked\
  --bsize 1000 --bt --loocv --gz --threads 16"
 
 dx run swiss-army-knife \
@@ -29,5 +28,6 @@ dx run swiss-army-knife \
    -iin="${data_file_dir}/ukb22418_c1_22_v2_merged.bim" \
    -iin="${data_file_dir}/ukb22418_c1_22_v2_merged.fam" \
    -iin="${data_file_dir}/urticaria_wes.phe" \
+   -iin="${data_file_dir}/WES_array_snps_qc_pass.snplist" \
    -icmd="${run_regenie_step1}" --tag="Step1" --instance-type "mem1_ssd1_v2_x16"\
    --destination="${project}:/Data/" --brief --yes
