@@ -24,14 +24,19 @@ data_file_dir="${project}:/Data/"
 
 
 for chr in {1..22}; do
-  run_regenie_cmd="regenie --step 2 --bed ukb${data_field}_c${chr}_b0_v1 --out assoc.c${chr}\
-    --phenoFile urticaria_wes.phe --covarFile urticaria_wes.phe\
-    --bt --approx --firth-se --firth --extract WES_c${chr}_snps_qc_pass.snplist\
-    #phenotype colum and covariate columns in urticaria_wes.phe\
-    --phenoCol urticaria_cc --covarCol age --covarCol sex --covarCol ever_smoked \
-    --pred urticaria_results_pred.list --bsize 200\
+  run_regenie_cmd="regenie --step 2 \
+    --bed ukb${data_field}_c${chr}_b0_v1 \
+    --out assoc.c${chr} \
+    --phenoFile urticaria_wes.phe \
+    --covarFile urticaria_wes.phe \
+    --bt --approx --firth-se --firth \
+    --extract WES_c${chr}_snps_qc_pass.snplist \
+    --phenoCol urticaria_cc \
+    --covarCol age --covarCol sex --covarCol ever_smoked \
+    --pred urticaria_results_pred.list \
+    --bsize 200 \
     --pThresh 0.05 --minMAC 3 --threads 16 --gz"
-    
+
   dx run app-swiss-army-knife \
     -iin="${exome_file_dir}/ukb${data_field}_c${chr}_b0_v1.bed" \
     -iin="${exome_file_dir}/ukb${data_field}_c${chr}_b0_v1.bim" \
@@ -41,10 +46,6 @@ for chr in {1..22}; do
     -iin="${data_file_dir}/urticaria_results_pred.list" \
     -iin="${data_file_dir}/urticaria_results_1.loco.gz" \
     -icmd="${run_regenie_cmd}" \
-    --tag="Step2" \
-    --instance-type "mem1_ssd1_v2_x16" \
-    --destination="${project}:/Data/" \
-    --brief \
-    --yes
-
+    --tag="Step2" --instance-type "mem1_ssd1_v2_x16" \
+    --destination="${project}:/Data/" --brief --yes
 done
